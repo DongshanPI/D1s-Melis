@@ -1,11 +1,75 @@
-# d1s-melis
-Allwinner melis RTOS for D1s
+[中文](README_CN.md) | [English](README.md)
 
-## Toolchain
+> Allwinner melis RTOS for DongshanPI-D1s.
 
-Before compiling, please download the compilation toolchain and place it to `prebuilt` directory.
+![DongshanPI-D1sRunMelis-001](https://cdn.staticaly.com/gh/DongshanPI/Docs-Photos@master/DongshanPI-D1sRunMelis-001.jpg)
 
-Github: [Tina-Linux/d1s-melis/releases](https://github.com/Tina-Linux/d1s-melis/releases)
+
+## How to build
+
+### Host Config
+
+* ubuntu-22 install tools
+
+```bash
+sudo apt installautoconf automake autotools-dev curl python3 libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool patchutils bc zlib1g-dev libexpat-dev
+
+sudo dpkg --add-architecture i386
+sudo apt-get update
+
+sudo apt-getinstall libc6:i386 libncurses5:i386 libstdc++6:i386 -y
+
+sudo apt install lib32z1 -y
+```
+
+
+
+### Get Code
+
+* Github
+
+```ba
+git clone  https://github.com/DongshanPI/D1s-Melis.git
+cd D1s-Melis 
+git submodule update --init --recursive
+```
+
+
+
+### Build Code
+
+Register the environment variables of the SDK with the compilation server host;
+
+```shell
+source melis-env.sh
+```
+
+Enter lunch, then enter 2, and select the d1s scheme "d1s-evb-board";
+```shell
+lunch
+```
+
+Build projcet
+```shell
+make -j65535
+```
+
+Pack the target image
+```shell
+pack          # pack spi nor flash
+pack -a nand  # pack spi nand flash \ sd card
+```
+
+
+
+## How to download
+
+Using the `PhoenixSuit` tool to burns the `melis_d1s-evb-board_uart0_8Mnor.img` firmware in the `out` directory.
+
+Referencelink: https://dongshanpi.com/DongshanNezhaSTU/03-QuickStart/#spi-nand
+
+
+
 
 ## Command
 ```
@@ -64,30 +128,3 @@ Github: [Tina-Linux/d1s-melis/releases](https://github.com/Tina-Linux/d1s-melis/
 == grep file ==
 - cgrep:    Greps on all local C/C++ files.
 ```
-
-## How to build
-
-Register the environment variables of the SDK with the compilation server host;
-```shell
-source melis-env.sh
-```
-
-Enter lunch, then enter 2, and select the d1s scheme "d1s-evb-board";
-```shell
-lunch
-```
-
-Build projcet
-```shell
-make -j65535
-```
-
-Pack the target image
-```shell
-pack          # pack spi nor flash
-pack -a nand  # pack spi nand flash \ sd card
-```
-
-## How to download
-Using the `PhoenixSuit` tool to burns the `melis_d1s-evb-board_uart0_8Mnor.img` firmware in the `out` directory.
-

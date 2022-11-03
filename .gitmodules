@@ -1,0 +1,3 @@
+[submodule "toolchain"]
+	path = toolchain
+	url = https://e.coding.net/weidongshan/allwinner-d1s/toolchain.git
